@@ -1,0 +1,30 @@
+<% include partials/header %>
+
+<div class="ui container main text segment">
+    <div class="top attached">
+        <a class="ui button violet" href="/posts/"><i class="icon pointing left"></i> Back to posts</a>
+        <a class="ui button violet" href="/posts/<%- post._id %>/edit"><i class="icon edit"></i> Edit post</a>
+        <form class="ui buttons right floated" action="/posts/<%= post._id %>?_method=DELETE" action="POST">
+            <button class="ui button negative" type="submit" formmethod="POST"><i class="icon remove"></i> Remove post</button>
+        </form>
+        <h1 class="ui huge header violet"><%= post.title %></h1>
+        <div class="item">
+            <img class="ui centered huge rounded image" src="<%= post.image %>">
+            <div class="content">
+                <div class="meta">
+                    <span class="date">Posted on: <%= post.created.toDateString(); %></span>
+                </div>
+                <p><%- post.body %></p>
+            </div><!--content-->
+        </div><!--item-->
+        <a class="ui button violet" href="/posts/"><i class="icon pointing left"></i> Back to posts</a>
+        <a class="ui button violet" href="/posts/<%- post._id %>/edit"><i class="icon edit"></i> Edit post</a>
+        <form class="ui buttons right floated" action="/posts/<%= post._id %>?_method=DELETE" action="POST">
+            <button class="ui button negative" type="submit" formmethod="POST"><i class="icon remove"></i> Remove post</button>
+        </form>
+    </div><!--segment-->
+</div><!--container-->
+
+
+
+<% include partials/footer %>

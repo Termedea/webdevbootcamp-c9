@@ -1,0 +1,19 @@
+body{
+    padding-top: 70px;
+}
+i.icon{
+    font-size: 1.3em;
+}
+
+description.excerpt{
+    text-overflow:ellipsis
+}
+
+.meta .date{
+    font-size: .7em;
+    line-height: 1.5em; 
+    margin-bottom: 1em;
+    margin-top: .7em;
+    font-style: italic;
+    display: block;
+}

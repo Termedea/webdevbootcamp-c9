@@ -1,0 +1,25 @@
+<% include partials/header %>
+
+<div class="ui container main text segment">
+    <h1 class="ui huge header">Create new post</h1>
+    <form class="ui form" action="/posts" method="POST">
+        <div class="field">
+            <label>Title </label>
+            <input type="text" name="post[title]" placeholder="Enter post title">
+        </div>
+        <div class="field">
+            <label>Image </label>
+            <input type="text" name="post[image]" placeholder="Enter post image">
+        </div>
+        <div class="field">
+            <label>Post </label>
+            <textarea type="text" name="post[body]" placeholder="Enter your blog post"></textarea>
+        </div>
+        
+        <input class="ui button violet inverted big fluid" type="submit" value="Create new post">
+        
+    </form>
+
+</div>
+
+<% include partials/footer %>

@@ -1,0 +1,32 @@
+<% include partials/header %>
+
+    
+    <div class="ui main container text">
+        <h1>All blog posts</h1>
+        <div class="ui divided items segment">
+        <% posts.forEach(function(post){ %>
+        
+            <div class="item">
+                <div class="ui small image">
+                    <img src="<%= post.image %>">
+                </div><!--image-->
+                <div class="content">
+                    <a class="ui header violet" href="/posts/<%= post._id %>"><%= post.title %></a>
+                    <div class="meta">
+                        <span class="date">Posted on: <%= post.created.toDateString(); %></span>
+                    </div><!--meta-->
+                    <div class="description">
+                        <p><%- post.body.substring(0, 100); %><% if(post.body.length > 100){ %>...<% }%></p>
+                    </div><!--description-->
+                    <div class="extra">
+                        <a class="ui right floated button violet" href="/posts/<%= post._id %>">Read More <i class="icon pointing right"></i></a>
+                    </div><!--extra-->
+                </div><!--content-->
+            </div><!--item-->
+            
+        <% }); %>
+        </div><!--segment-->
+    </div><!--container-->
+
+
+<% include partials/footer %>

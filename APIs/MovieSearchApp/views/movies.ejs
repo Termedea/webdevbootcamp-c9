@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Movies</title>
+</head>
+<body>
+    <% include search%>
+    
+    <h2>Result</h2>
+    <ul>
+        <% movies.forEach(function(movie){ %>
+        <li><strong><%= movie.Title %></strong> (<%= movie.Type %>) - <%= movie.Year %></li>
+        
+        <% }); %>
+    </ul>
+</body>
+</html>
+
