@@ -2,11 +2,11 @@ var express = require("express");
 var router = express.Router();
 var passport = require("passport");
 
-/* Models import */
+/** MODELS **/
 var User = require("../models/user");
 
 
-//INDEX
+/** INDEX ROUTE **/
 router.get("/", function(req, res){
     res.render("landing");
 });
@@ -64,3 +64,5 @@ function isLoggedIn(req, res, next){
     }
     res.redirect("/login");
 }
+
+module.exports = router; 

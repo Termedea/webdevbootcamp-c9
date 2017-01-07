@@ -47,7 +47,7 @@ function seedDB(){
                       //add a few comments
                       Comment.create(
                           {
-                              text: "This place is grate, but I wish there were images",
+                              text: "This place is great, but I wish there were wifi",
                               author: "Homer"
                               
                           }, function(err, comment){
