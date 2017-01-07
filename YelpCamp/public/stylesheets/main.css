@@ -16,3 +16,7 @@ body{
 .well .row{
     margin: 0;
 }
+
+.container .row h1{
+    text-align: center;
+}
