@@ -3,7 +3,6 @@ var express             = require("express"),
     app                 = express(),
     bodyParser          = require("body-parser"),
     mongoose            = require("mongoose"),
-    seedDB              = require("./seed"),
     passport            = require("passport"),
     LocalStrategy       = require("passport-local");
 /******************************************/
@@ -31,6 +30,7 @@ app.set("view engine", "ejs");
 //only reseeds if set as an argument. 
 var seed = process.argv[2];
 if(seed === "true"){
+    var seedDB = require("./seed");
     //seed database
     seedDB();
 }

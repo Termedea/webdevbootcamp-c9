@@ -34,7 +34,7 @@ function seedDB(){
             console.log(err);
         }
         else{
-            console.log("Database cleaned: Campgrounds remove");
+            console.log("Database cleaned: Campgrounds removed");
             
             //add a few camgounds
             data.forEach(function(seed){
@@ -70,4 +70,4 @@ function seedDB(){
     
 }
 
-module.exports =seedDB;
+module.exports = seedDB;
