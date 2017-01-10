@@ -20,3 +20,16 @@ body{
 .container .row h1{
     text-align: center;
 }
+
+.form-group textarea{
+    height: 7em;
+}
+
+.delete-form{
+    display: inline;
+}
+
+.campground-index{
+    display: flex; 
+    flex-wrap: wrap;
+}

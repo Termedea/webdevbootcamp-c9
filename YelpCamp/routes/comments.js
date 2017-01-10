@@ -27,19 +27,21 @@ router.post("/", isLoggedIn, function(req, res){
             res.redirect("campgrounds/")
         }else{
             
-            //create new comment
-            Comment.create(req.body.comment, function(err, comment){
+            //create new comment 
+            //with comment data from form
+            var comment = new Comment(req.body.comment);
+            //and author user data from session
+            comment.author = {id: req.user._id, username: req.user.username}
+            
+            //save comment
+            comment.save(req.body.comment, function(err, comment){
                if(err){
                    console.log(err);
                }else{
                    
-                   //add username and id to comment
-                   comment.author.id = req.user.id;
-                   comment.author.username = req.user.username;
-                   //save comment to campground
-                   comment.save();
-                   
+                   //if comment saved successfully, add comment to campground
                    campground.comments.push(comment);
+                   //save campground
                    campground.save(function(err, campground){
                        if(err){
                            console.log(err)
@@ -56,11 +58,15 @@ router.post("/", isLoggedIn, function(req, res){
     
 });
 
+//EDIT - show the edit form
+
 /******************************************/
 
 /** MIDDLEWARE **/
 function isLoggedIn(req, res, next){
-    if(req.isAuthenticated())   {
+    
+    if(req.isAuthenticated())   
+    {
         return next();
     }
     res.redirect("/login");

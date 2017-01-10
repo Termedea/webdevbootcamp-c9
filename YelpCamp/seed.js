@@ -37,7 +37,7 @@ function seedDB(){
             console.log("Database cleaned: Campgrounds removed");
             
             //add a few camgounds
-            data.forEach(function(seed){
+           data.forEach(function(seed){
                Campground.create(seed, function(err, campground){
                    if(err){
                        console.log();
@@ -48,7 +48,7 @@ function seedDB(){
                       Comment.create(
                           {
                               text: "This place is great, but I wish there were wifi",
-                              author: "Homer"
+                              author: {username: "Homer"}
                               
                           }, function(err, comment){
                               if(err){

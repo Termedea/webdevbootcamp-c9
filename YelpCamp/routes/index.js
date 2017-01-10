@@ -43,12 +43,11 @@ router.get("/login", function(req, res) {
    res.render("login");
 });
 
-//passport.... is middleware. 
+//passport.auth... is middleware. 
 router.post("/login", passport.authenticate("local", {
-    successRedirect: "/campgrounds",
-    failureRedirect: "/login"
+    failureRedirect: "/login",
+    successReturnToOrRedirect: "/campgrounds"
 }));
-
 
 //LOGOUT
 router.get("/logout", function(req, res) {
@@ -59,10 +58,11 @@ router.get("/logout", function(req, res) {
 
 /** MIDDLEWARE **/
 function isLoggedIn(req, res, next){
-    if(req.isAuthenticated())   {
+    
+    if(req.isAuthenticated())   
+    {
         return next();
     }
     res.redirect("/login");
 }
-
 module.exports = router; 
