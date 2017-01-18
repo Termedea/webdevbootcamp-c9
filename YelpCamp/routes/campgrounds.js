@@ -1,7 +1,8 @@
 var express             = require("express"),
     router              = express.Router(),
     expressSanitizer    = require("express-sanitizer"),
-    middleware          = require("../middleware");
+    middleware          = require("../middleware"),
+    tools               = require ("../tools");
     
 router.use(expressSanitizer());
 /** MODELS **/
@@ -15,6 +16,7 @@ router.get("/", function(req, res){
     
     Campground.find({}, function(err, campgrounds){
         if(err){
+            console.log("APA!!!");
             console.log(err);
         }else{
             //req.user contains all user information. 
@@ -40,8 +42,10 @@ router.post("/", middleware.isLoggedIn, function(req, res){
     
     Campground.create(campground, function(err, campground){
        if(err) {
+           req.flash("error", tools.errorSaving("campground"));
            console.log(err);
        }else{
+           req.flash("success", tools.successCreating("campground"));
            res.redirect("/campgrounds");
        }
     });
@@ -55,6 +59,7 @@ router.get("/:id", function(req, res) {
     Campground.findById(req.params.id).populate("comments").exec(function(err, foundCampground){
         
         if(err){
+            req.flash("error", tools.errorFetching("campground"));
             console.log(err);
         }else{
             //render show-template with that id. 
@@ -68,6 +73,10 @@ router.get("/:id", function(req, res) {
 router.get("/:id/edit", middleware.checkCampgroundOwnership, function(req, res) {
     
     Campground.findById(req.params.id, function(err, campground){
+        if(err){
+            req.flash("error", tools.errorFetching("campground"));
+            console.log(err);
+        }
         res.render("campgrounds/edit", {campground: campground});
     });
 
@@ -75,14 +84,17 @@ router.get("/:id/edit", middleware.checkCampgroundOwnership, function(req, res) 
 
 //UPDATE - saves updates
 router.put("/:id", middleware.checkCampgroundOwnership, function(req, res){
-    //TOD: fixa sanitize på update
+    //TODO: fixa sanitize på update
 
     //find and update
     Campground.findByIdAndUpdate(req.params.id, req.body.campground, function(err, campground){
         if(err){
+            req.flash("error", tools.errorUpdating("campground"));
+            console.log(err);
             res.redirect("/campgrounds");
         }else{
             //redirect to uptaded page
+            req.flash("success", tools.successUpdating("campground"));
             res.redirect("/campgrounds/"+campground._id);
         }
     });
@@ -92,8 +104,10 @@ router.put("/:id", middleware.checkCampgroundOwnership, function(req, res){
 router.delete("/:id", middleware.checkCampgroundOwnership, function(req, res){
    Campground.findByIdAndRemove(req.params.id, function(err){
        if(err){
+           req.flash("error", tools.errorDeleting("campground"));
            console.log(err)
        }
+       req.flash("success", tools.successDeleting("campground"));
        res.redirect("/campgrounds");
    });
 });

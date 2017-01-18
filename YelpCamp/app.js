@@ -5,7 +5,8 @@ var express             = require("express"),
     mongoose            = require("mongoose"),
     passport            = require("passport"),
     LocalStrategy       = require("passport-local"),
-    methodOverride      = require("method-override");
+    methodOverride      = require("method-override"),
+    flash               = require("connect-flash");
     
 /******************************************/
 /** Route variables **/
@@ -21,6 +22,7 @@ mongoose.connect("mongodb://localhost/yelp_camp");
 /******************************************/
 
 /** Express and data init **/
+//setup bodyparser
 app.use(bodyParser.urlencoded({extended: true}));
 
 //tells express to listen in the public folder as well
@@ -31,6 +33,9 @@ app.set("view engine", "ejs");
 
 //use method override for put and delete routes. Looks for the prefix _method in get-requests. 
 app.use(methodOverride("_method"));
+
+//setup flash messages
+app.use(flash());
 
 //only reseeds if set as an argument. 
 var seed = process.argv[2];
@@ -43,7 +48,7 @@ if(seed === "true"){
 
 
 
-/** Passport config **/
+/** Passport/session config **/
 app.use(require("express-session")({
     secret: "I love Yoshi",
     resave: false,
@@ -59,11 +64,12 @@ passport.deserializeUser(User.deserializeUser());
 
 /******************************************/
 
-/** Middleware **/
 
 //will call this function on every route and pass in user if it exists (is logged in.)
 app.use(function(req, res, next){
     res.locals.currentUser = req.user;
+    res.locals.error = req.flash("error");
+    res.locals.success = req.flash("success");
     next();
 });
 /******************************************/
